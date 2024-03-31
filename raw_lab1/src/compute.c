@@ -89,6 +89,14 @@ void compute_row_major_knm() {
 }
 
 void compute_y_transpose_mnk() {
+    zero_z();
+    for (int i = 0; i != m; ++i) {
+        for (int j = 0; j != n; ++j) {
+            for (int l = 0; l != k; ++l) {
+                Z[i][j] += X[i][l] * YP[j][l];
+            }
+        }
+    }
     // TODO: task 2
 }
 
