@@ -139,6 +139,15 @@ void compute_row_major_mnk_lu2() {
 
 void compute_simd() {
 #ifdef SIMD
+    matrix_mul(X,Y,Z,m,n,k){
+        for (int i = 0; i != m; ++i) {
+            for (int j = 0; j != n; ++j) {
+                for (int l = 0; l != k; ++l) {
+                    Z[i][j] += X[i][l] * Y[l][j];
+                }
+            }
+        }
+    }
     // TODO: task 3
 #endif
 }
