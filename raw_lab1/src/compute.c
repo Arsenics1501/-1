@@ -101,10 +101,39 @@ void compute_y_transpose_mnk() {
 }
 
 void compute_row_major_mnkkmn_b32() {
+        zero_z();
+    for (int ii = 0; ii != m/32; ++ii) {
+        for (int jj = 0; jj != n/32; ++jj) {
+            for (int ll = 0; ll != k/32; ++ll) {
+                for(int l = 0; l != 32; ++l) {
+                    for(int i = 0; i != 32; ++i){
+                        for(int j = 0; j != 32; ++j){
+                Z[ii*32+i][jj*32+j] += X[ii*32+i][ll*32+l] * Y[ll*32+l][jj*32+j];
+                        }
+                    }
+                }
+            }
+        }
+    }
     // TODO: task 2
 }
 
 void compute_row_major_mnk_lu2() {
+        zero_z();
+    for (int i = 0; i != m; i += 2) {
+        for (int j = 0; j != n; j += 2) {
+            for (int l = 0; l != k; l +=2) {
+                Z[i][j] += X[i][l] * Y[l][j];
+                Z[i+1][j] += X[i+1][l] * Y[l][j];
+                Z[i][j+1] += X[i][l] * Y[l][j+1];
+                Z[i][j] += X[i][l+1] * Y[l+1][j];
+                Z[i+1][j+1] += X[i+1][l] * Y[l][j+1];
+                Z[i+1][j] += X[i+1][l+1] * Y[l+1][j];
+                Z[i][j+1] += X[i][l+1] * Y[l+1][j+1];
+                Z[i+1][j+1] += X[i+1][l+1] * Y[l+1][j+1];
+            }
+        }
+    }
     // TODO: task 2
 }
 
